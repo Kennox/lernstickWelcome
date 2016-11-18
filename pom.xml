@@ -4,7 +4,6 @@
 	<groupId>ch.fhnw</groupId>
 	<artifactId>lernstickWelcome</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<!-- To make the output of the javadoc support utf-8 -->
