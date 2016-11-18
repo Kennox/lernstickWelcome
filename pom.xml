@@ -9,7 +9,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<!-- To make the output of the javadoc support utf-8 -->
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-		<project.maindir>${project.basedir}/src/main</project.maindir>
+		<project.maindir>${project.basedir}/src/ch/fhnw/lernstickwelcome</project.maindir>
 	</properties>
 
 	<build>
@@ -34,9 +34,9 @@
 						<manifest>
 							<addClasspath>true</addClasspath>
 							<!-- the library files are stored in this path -->
-							<classpathPrefix>lib/</classpathPrefix>
+							<classpathPrefix>libs/</classpathPrefix>
 							<!-- this points to the main function -->
-							<mainClass>ch.fhnw.edu.rental.MovieRentalApplication</mainClass>
+							<mainClass>ch.fhnw.lernstickwelcome</mainClass>
 						</manifest>
 					</archive>
 				</configuration>
@@ -55,7 +55,7 @@
 						</goals>
 						<configuration>
 							<!-- this directory should match the library folder from above -->
-							<outputDirectory>${project.build.directory}/lib</outputDirectory>
+							<outputDirectory>${project.build.directory}/libs</outputDirectory>
 							<overWriteReleases>false</overWriteReleases>
 							<overWriteSnapshots>false</overWriteSnapshots>
 							<overWriteIfNewer>true</overWriteIfNewer>
@@ -127,14 +127,14 @@
 
 	<dependencies>
 		<!-- dbus.jar -->
-        <!-- https://mvnrepository.com/artifact/com.github.bdeneuter/dbus-java -->
-        <dependency>
-            <groupId>com.github.bdeneuter</groupId>
-            <artifactId>dbus-java</artifactId>
-            <version>[2.7,]</version>
-        </dependency>
+		<!-- https://mvnrepository.com/artifact/com.github.bdeneuter/dbus-java -->
+		<dependency>
+			<groupId>com.github.bdeneuter</groupId>
+			<artifactId>dbus-java</artifactId>
+			<version>[2.7,]</version>
+		</dependency>
 
-        <!-- derby.jar -->
+		<!-- derby.jar -->
 		<dependency>
 			<groupId>org.apache.derby</groupId>
 			<artifactId>derby</artifactId>
@@ -144,9 +144,9 @@
 
 		<!-- hexdump.jar -->
 		<dependency>
-		    <groupId>org.abstractj.libmatthew</groupId>
-		    <artifactId>hexdump</artifactId>
-		    <version>[0.2.1,]</version>
+			<groupId>org.abstractj.libmatthew</groupId>
+			<artifactId>hexdump</artifactId>
+			<version>[0.2.1,]</version>
 		</dependency>
 
 		<!-- jh.jar -->
@@ -174,7 +174,7 @@
 		<dependency>
 			<groupId>com.github.kennox</groupId>
 			<artifactId>lernstickTools</artifactId>
-            <version>master-e6f60619ae-1</version>
+			<version>master-e6f60619ae-1</version>
 		</dependency>
 
 	</dependencies>
@@ -184,9 +184,9 @@
 			<id>freehep-releases</id>
 			<url>http://java.freehep.org/maven2/</url>
 		</repository>
-        <repository>
-            <id>jitpack.io</id>
-            <url>https://jitpack.io</url>
-        </repository>
+		<repository>
+			<id>jitpack.io</id>
+			<url>https://jitpack.io</url>
+		</repository>
 	</repositories>
 </project>
