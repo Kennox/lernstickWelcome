@@ -30,6 +30,7 @@
 				</configuration>
 			</plugin>
 
+            <!-- add resources like *.properties files to the build -->
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>build-helper-maven-plugin</artifactId>
@@ -128,7 +129,6 @@
 				<artifactId>maven-javadoc-plugin</artifactId>
 				<version>2.10.4</version>
 				<configuration>
-					<!-- Doctitle and footer -->
 					<charset>UTF-8</charset>
 				</configuration>
 				<reportSets>
@@ -145,7 +145,6 @@
 
 	<dependencies>
 		<!-- dbus.jar -->
-		<!-- https://mvnrepository.com/artifact/com.github.bdeneuter/dbus-java -->
 		<dependency>
 			<groupId>com.github.bdeneuter</groupId>
 			<artifactId>dbus-java</artifactId>
@@ -182,6 +181,7 @@
 			<scope>test</scope>
 		</dependency>
 
+        <!-- lernstickTools -->
 		<dependency>
 			<groupId>com.github.Kennox</groupId>
 			<artifactId>lernstickTools</artifactId>
