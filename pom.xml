@@ -11,6 +11,18 @@
 		<project.maindir>${project.basedir}/src/ch/fhnw/lernstickwelcome</project.maindir>
 	</properties>
 
+	<repositories>
+		<repository>
+			<id>freehep-maven</id>
+			<name>Maven FreeHEP</name>
+			<url>http://java.freehep.org/maven2</url>
+		</repository>
+		<repository>
+			<id>jitpack.io</id>
+			<url>https://jitpack.io</url>
+		</repository>
+	</repositories>
+
 	<build>
 		<plugins>
 
@@ -98,7 +110,9 @@
 				<version>2.17</version>
 				<configuration>
 					<configLocation>${project.maindir}/config/swc_checks.xml</configLocation>
+					<!-- Don't have it fail for warnings in checkstyle yet
 					<violationSeverity>warning</violationSeverity>
+					-->
 					<failOnViolation>true</failOnViolation>
 					<consoleOutput>true</consoleOutput>
 				</configuration>
@@ -171,21 +185,11 @@
 		</dependency>
 
 		<dependency>
-			<groupId>com.github.kennox</groupId>
+			<groupId>com.github.Kennox</groupId>
 			<artifactId>lernstickTools</artifactId>
-			<version>master-e6f60619ae-1</version>
+			<version>1</version>
 		</dependency>
 
 	</dependencies>
 
-	<repositories>
-		<repository>
-			<id>freehep-releases</id>
-			<url>http://java.freehep.org/maven2/</url>
-		</repository>
-		<repository>
-			<id>jitpack.io</id>
-			<url>https://jitpack.io</url>
-		</repository>
-	</repositories>
 </project>
