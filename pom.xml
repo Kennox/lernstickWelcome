@@ -30,61 +30,28 @@
 				</configuration>
 			</plugin>
 
-			<plugin>
-				<!-- Make JAR file executable -->
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-jar-plugin</artifactId>
-				<version>3.0.2</version>
-				<configuration>
-					<archive>
-						<manifest>
-							<addClasspath>true</addClasspath>
-							<!-- the library files are stored in this path -->
-							<classpathPrefix>libs/</classpathPrefix>
-							<!-- this points to the main function -->
-							<mainClass>ch.fhnw.lernstickwelcome.Welcome</mainClass>
-						</manifest>
-					</archive>
-				</configuration>
-			</plugin>
-
-			<!-- Copy all of the libraries to the /lib directory of the JAR, so the dependencies are there to execute -->
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-dependency-plugin</artifactId>
-				<executions>
-					<execution>
-						<id>copy-dependencies</id>
-						<phase>prepare-package</phase>
-						<goals>
-							<goal>copy-dependencies</goal>
-						</goals>
-						<configuration>
-							<!-- this directory should match the library folder from above -->
-							<outputDirectory>${project.build.directory}/libs</outputDirectory>
-							<overWriteReleases>false</overWriteReleases>
-							<overWriteSnapshots>false</overWriteSnapshots>
-							<overWriteIfNewer>true</overWriteIfNewer>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
-
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>build-helper-maven-plugin</artifactId>
-                <version>1.7</version>
+                <version>1.12</version>
                 <executions>
                     <execution>
-                        <id>add-source</id>
-                        <phase>generate-sources</phase>
+                        <id>add-resource</id>
+                        <phase>generate-resources</phase>
                         <goals>
-                            <goal>add-source</goal>
+                            <goal>add-resource</goal>
                         </goals>
                         <configuration>
-                            <sources>
-                                <source>src/ch/fhnw/lernstickwelcome</source>
-                            </sources>
+                            <resources>
+                                <resource>
+                                    <directory>src/ch/fhnw/lernstickwelcome</directory>
+                                    <targetPath>ch/fhnw/lernstickwelcome</targetPath>
+                                    <excludes>
+                                        <exclude>*.java</exclude>
+                                        <exclude>/**/</exclude>
+                                    </excludes>
+                                </resource>
+                            </resources>
                         </configuration>
                     </execution>
                 </executions>
@@ -115,6 +82,28 @@
 					</execution>
 				</executions>
 			</plugin>
+
+            <!-- Package all the dependencies into the JAR -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>2.4.3</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                        <configuration>
+                            <transformers>
+                                <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                                    <mainClass>ch.fhnw.lernstickwelcome.Welcome</mainClass>
+                                </transformer>
+                            </transformers>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
 		</plugins>
 	</build>
 
@@ -196,7 +185,7 @@
 		<dependency>
 			<groupId>com.github.Kennox</groupId>
 			<artifactId>lernstickTools</artifactId>
-			<version>1</version>
+			<version>2</version>
 		</dependency>
 
 	</dependencies>
