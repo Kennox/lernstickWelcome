@@ -5,10 +5,16 @@
 	<artifactId>lernstickWelcome</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <!-- Project dependant variables -->
+        <custom.path>ch/fhnw/lernstickwelcome</custom.path>
+        <custom.main.class>ch.fhnw.lernstickwelcome.Welcome</custom.main.class>
+        <custom.checkstyle>config/checkstyle.xml</custom.checkstyle>
+
+        <!-- Project independant variables -->
+        <custom.source>src/${custom.path}</custom.source>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<!-- To make the output of the javadoc support utf-8 -->
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-		<project.maindir>${project.basedir}/src/ch/fhnw/lernstickwelcome</project.maindir>
 	</properties>
 
 	<repositories>
@@ -19,8 +25,9 @@
 	</repositories>
 
 	<build>
-		<plugins>
+        <sourceDirectory>${custom.source}</sourceDirectory>
 
+        <plugins>
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>3.3</version>
@@ -29,6 +36,32 @@
 					<target>1.8</target>
 				</configuration>
 			</plugin>
+
+            <!-- checkstyle plugin -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+                <version>2.17</version>
+                <configuration>
+                    <configLocation>${custom.checkstyle}</configLocation>
+                    <encoding>UTF-8</encoding>
+                    <consoleOutput>true</consoleOutput>
+                    <failsOnError>true</failsOnError>
+                    <!-- don't have the build fail because of checkstyle yet
+                    <failOnViolation>true</failOnViolation>
+					<violationSeverity>warning</violationSeverity>
+					-->
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>verify-style</id>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
 
             <!-- add resources like *.properties files to the build -->
             <plugin>
@@ -45,8 +78,8 @@
                         <configuration>
                             <resources>
                                 <resource>
-                                    <directory>src/ch/fhnw/lernstickwelcome</directory>
-                                    <targetPath>ch/fhnw/lernstickwelcome</targetPath>
+                                    <directory>${custom.source}</directory>
+                                    <targetPath>${custom.path}</targetPath>
                                     <excludes>
                                         <exclude>*.java</exclude>
                                         <exclude>/**/</exclude>
@@ -57,32 +90,6 @@
                     </execution>
                 </executions>
             </plugin>
-
-			<!-- checkstyle plugin -->
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-checkstyle-plugin</artifactId>
-				<version>2.17</version>
-				<configuration>
-					<configLocation>${project.basedir}/config/checkstyle.xml</configLocation>
-					<encoding>UTF-8</encoding>
-					<consoleOutput>true</consoleOutput>
-					<failsOnError>true</failsOnError>
-                    <!-- don't have the build fail because of checkstyle yet
-                    <failOnViolation>true</failOnViolation>
-					<violationSeverity>warning</violationSeverity>
-					-->
-				</configuration>
-				<executions>
-					<execution>
-						<id>verify-style</id>
-						<phase>compile</phase>
-						<goals>
-							<goal>check</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
 
             <!-- Package all the dependencies into the JAR -->
             <plugin>
@@ -98,7 +105,7 @@
                         <configuration>
                             <transformers>
                                 <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                                    <mainClass>ch.fhnw.lernstickwelcome.Welcome</mainClass>
+                                    <mainClass>${custom.main.class}</mainClass>
                                 </transformer>
                             </transformers>
                         </configuration>
@@ -115,12 +122,13 @@
 				<artifactId>maven-checkstyle-plugin</artifactId>
 				<version>2.17</version>
 				<configuration>
-					<configLocation>${project.basedir}/config/checkstyle.xml</configLocation>
-					<violationSeverity>warning</violationSeverity>
-					<!-- don't have the build fail because of checkstyle yet
+                    <configLocation>${custom.checkstyle}</configLocation>
+                    <violationSeverity>warning</violationSeverity>
+                    <!-- don't have the build fail because of checkstyle yet
                     <failOnViolation>true</failOnViolation>
-					<consoleOutput>true</consoleOutput>
-					-->
+                    -->
+                    <consoleOutput>true</consoleOutput>
+
 				</configuration>
 			</plugin>
 
