@@ -42,6 +42,13 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-checkstyle-plugin</artifactId>
                 <version>2.17</version>
+		    <dependencies>
+            				<dependency>
+					      <groupId>com.puppycrawl.tools</groupId>
+					      <artifactId>checkstyle</artifactId>
+					      <version>7.2</version>
+					</dependency>
+				</dependencies>
                 <configuration>
                     <configLocation>${custom.checkstyle}</configLocation>
                     <encoding>UTF-8</encoding>
@@ -136,13 +143,6 @@
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-javadoc-plugin</artifactId>
 				<version>2.10.4</version>
-				<dependencies>
-            				<dependency>
-					      <groupId>com.puppycrawl.tools</groupId>
-					      <artifactId>checkstyle</artifactId>
-					      <version>7.2</version>
-					</dependency>
-				</dependencies>
 				<configuration>
 					<charset>UTF-8</charset>
 				</configuration>
