@@ -78,7 +78,7 @@
 						<phase>generate-sources</phase>
 						<configuration>
                             <!-- Everything from the original ant build.xml starting from the first <target> belongs here -->
-                            <target name="-post-jar">
+                            <tasks>
                                 <jar destfile="dist/lernstickWelcome.jar" update="true">
                                     <zipfileset src="${project.basedir}/libs/java_file_copy_library-0.9.7.jar" excludes="META-INF/**"/>
                                     <zipfileset src="${com.github.Kennox:lernstickTools:jar}" excludes="META-INF/**"/>
@@ -87,31 +87,22 @@
                                         <attribute name="Main-Class" value="ch.fhnw.lernstickwelcome.Welcome"/>
                                     </manifest>
                                 </jar>
-                            </target>
-
-                            <target name="1_debian_packages">
                                 <!-- build debian package -->
                                 <exec executable="dpkg-buildpackage"/>
                                 <exec executable="fakeroot">
                                     <arg value="debian/rules"/>
                                     <arg value="clean"/>
                                 </exec>
-                            </target>
-                            <target name="2_sort_strings">
                                 <exec executable="sh">
                                     <arg value="sort_strings.sh"></arg>
                                 </exec>
-                            </target>
-                            <target name="3_check_strings">
                                 <exec executable="sh">
                                     <arg value="check_strings.sh"></arg>
                                 </exec>
-                            </target>
-                            <target name="4_check_icons">
                                 <exec executable="sh">
                                     <arg value="check_icons.sh"></arg>
                                 </exec>
-                            </target>
+                            </tasks>
 						</configuration>
 						<goals>
 							<goal>run</goal>
