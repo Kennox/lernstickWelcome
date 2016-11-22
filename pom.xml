@@ -80,7 +80,7 @@
                             <!-- Everything from the original ant build.xml starting from the first <target> belongs here -->
                             <target name="-post-jar">
                                 <jar destfile="dist/lernstickWelcome.jar" update="true">
-                                    <zipfileset src="libs/java_file_copy_library-0.9.7.jar" excludes="META-INF/**"/>
+                                    <zipfileset src="${project.basedir}/libs/java_file_copy_library-0.9.7.jar" excludes="META-INF/**"/>
                                     <zipfileset src="${com.github.Kennox:lernstickTools:jar}" excludes="META-INF/**"/>
                                     <manifest>
                                         <attribute name="Class-Path" value="/usr/share/java/dbus.jar /usr/share/java/unix.jar /usr/share/java/hexdump.jar"/>
