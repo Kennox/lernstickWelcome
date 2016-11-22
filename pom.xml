@@ -15,7 +15,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<!-- To make the output of the javadoc support utf-8 -->
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-	</properties>
+    </properties>
 
 	<repositories>
 		<repository>
@@ -42,11 +42,11 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-checkstyle-plugin</artifactId>
                 <version>2.17</version>
-		    <dependencies>
-            				<dependency>
-					      <groupId>com.puppycrawl.tools</groupId>
-					      <artifactId>checkstyle</artifactId>
-					      <version>7.2</version>
+		    	<dependencies>
+					<dependency>
+				  		<groupId>com.puppycrawl.tools</groupId>
+				  		<artifactId>checkstyle</artifactId>
+				  		<version>7.2</version>
 					</dependency>
 				</dependencies>
                 <configuration>
@@ -70,55 +70,56 @@
                 </executions>
             </plugin>
 
-            <!-- add resources like *.properties files to the build -->
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>build-helper-maven-plugin</artifactId>
-                <version>1.12</version>
-                <executions>
-                    <execution>
-                        <id>add-resource</id>
-                        <phase>generate-resources</phase>
-                        <goals>
-                            <goal>add-resource</goal>
-                        </goals>
-                        <configuration>
-                            <resources>
-                                <resource>
-                                    <directory>${custom.source}</directory>
-                                    <targetPath>${custom.path}</targetPath>
-                                    <excludes>
-                                        <exclude>*.java</exclude>
-                                        <exclude>/**/</exclude>
-                                    </excludes>
-                                </resource>
-                            </resources>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
+			<plugin>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<version>1.8</version>
+				<executions>
+					<execution>
+						<phase>generate-sources</phase>
+						<configuration>
+							<tasks>
+                                <!--
+                                  Place any ant task here. You can add anything
+                                  you can add between <target> and </target> in a
+                                  build.xml.
+                                -->
+                                    <jar destfile="dist/lernstickWelcome.jar" update="true">
+                                        <zipfileset src="libs/java_file_copy_library-0.9.7.jar" excludes="META-INF/**"/>
+										<zipfileset src="${com.github.Kennox:lernstickTools:jar}" excludes="META-INF/**"/>
+										<manifest>
+											<attribute name="Class-Path" value="/usr/share/java/dbus.jar /usr/share/java/unix.jar /usr/share/java/hexdump.jar"/>
+											<attribute name="Main-Class" value="ch.fhnw.lernstickwelcome.Welcome"/>
+										</manifest>
+									</jar>
 
-            <!-- Package all the dependencies into the JAR -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-shade-plugin</artifactId>
-                <version>2.4.3</version>
-                <executions>
-                    <execution>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>shade</goal>
-                        </goals>
-                        <configuration>
-                            <transformers>
-                                <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                                    <mainClass>${custom.main.class}</mainClass>
-                                </transformer>
-                            </transformers>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
+									<!-- build debian package -->
+									<exec executable="dpkg-buildpackage"/>
+									<exec executable="fakeroot">
+										<arg value="debian/rules"/>
+										<arg value="clean"/>
+									</exec>
+
+									<exec executable="sh">
+										<arg value="sort_strings.sh"></arg>
+									</exec>
+
+									<exec executable="sh">
+										<arg value="check_strings.sh"></arg>
+									</exec>
+
+									<exec executable="sh">
+										<arg value="check_icons.sh"></arg>
+									</exec>
+
+							</tasks>
+						</configuration>
+						<goals>
+							<goal>run</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
 		</plugins>
 	</build>
 
