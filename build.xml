@@ -9,6 +9,7 @@
 <!-- in the project's Project Properties dialog box.-->
 <project name="lernstickWelcome" default="default" basedir=".">
     <description>Builds, tests, and runs the project lernstickWelcome.</description>
+    <property name="build.compiler" value="extJavac"/>
     <import file="nbproject/build-impl.xml"/>
 
     <propertyfile file="src/ch/fhnw/lernstickwelcome/build">
