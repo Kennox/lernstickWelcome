@@ -1,54 +1,51 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion>
-	<groupId>ch.fhnw</groupId>
-	<artifactId>lernstickWelcome</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
-	<properties>
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>ch.fhnw</groupId>
+    <artifactId>lernstickWelcome</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <packaging>pom</packaging>
+    <properties>
         <!-- Project dependant variables -->
-        <custom.path>ch/fhnw/lernstickwelcome</custom.path>
-        <custom.main.class>ch.fhnw.lernstickwelcome.Welcome</custom.main.class>
         <custom.checkstyle>config/checkstyle.xml</custom.checkstyle>
 
         <!-- Project independant variables -->
-        <custom.source>src/${custom.path}</custom.source>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<!-- To make the output of the javadoc support utf-8 -->
-		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <!-- To make the output of the javadoc support utf-8 -->
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     </properties>
 
-	<repositories>
-		<repository>
-			<id>jitpack.io</id>
-			<url>https://jitpack.io</url>
-		</repository>
-	</repositories>
+    <repositories>
+        <repository>
+            <id>jitpack.io</id>
+            <url>https://jitpack.io</url>
+        </repository>
+    </repositories>
 
-	<build>
-        <sourceDirectory>${custom.source}</sourceDirectory>
-
+    <build>
         <plugins>
-			<plugin>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.3</version>
-				<configuration>
-					<source>1.8</source>
-					<target>1.8</target>
-				</configuration>
-			</plugin>
+
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.3</version>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                </configuration>
+            </plugin>
 
             <!-- checkstyle plugin -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-checkstyle-plugin</artifactId>
                 <version>2.17</version>
-		    	<dependencies>
-					<dependency>
-				  		<groupId>com.puppycrawl.tools</groupId>
-				  		<artifactId>checkstyle</artifactId>
-				  		<version>7.2</version>
-					</dependency>
-				</dependencies>
+                <dependencies>
+                    <dependency>
+                        <groupId>com.puppycrawl.tools</groupId>
+                        <artifactId>checkstyle</artifactId>
+                        <version>7.2</version>
+                    </dependency>
+                </dependencies>
                 <configuration>
                     <configLocation>${custom.checkstyle}</configLocation>
                     <encoding>UTF-8</encoding>
@@ -70,57 +67,57 @@
                 </executions>
             </plugin>
 
-			<plugin>
-				<artifactId>maven-antrun-plugin</artifactId>
-				<version>1.8</version>
-				<executions>
-					<execution>
-						<phase>generate-sources</phase>
-						<configuration>
-                            <!-- Everything from the original ant build.xml starting from the first <target> belongs here -->
+            <!-- build jar from ant build.xml -->
+            <plugin>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <phase>process-resources</phase>
+                        <configuration>
                             <tasks>
-                                <jar destfile="dist/lernstickWelcome.jar" update="true">
-                                    <zipfileset src="${project.basedir}/libs/java_file_copy_library-0.9.7.jar" excludes="META-INF/**"/>
-                                    <zipfileset src="${com.github.Kennox:lernstickTools:jar}" excludes="META-INF/**"/>
-                                    <manifest>
-                                        <attribute name="Class-Path" value="/usr/share/java/dbus.jar /usr/share/java/unix.jar /usr/share/java/hexdump.jar"/>
-                                        <attribute name="Main-Class" value="ch.fhnw.lernstickwelcome.Welcome"/>
-                                    </manifest>
-                                </jar>
-                                <!-- build debian package -->
-                                <exec executable="dpkg-buildpackage"/>
-                                <exec executable="fakeroot">
-                                    <arg value="debian/rules"/>
-                                    <arg value="clean"/>
-                                </exec>
-                                <exec executable="sh">
-                                    <arg value="sort_strings.sh"></arg>
-                                </exec>
-                                <exec executable="sh">
-                                    <arg value="check_strings.sh"></arg>
-                                </exec>
-                                <exec executable="sh">
-                                    <arg value="check_icons.sh"></arg>
-                                </exec>
+                                <ant antfile="build.xml" target="compile"/>
                             </tasks>
-						</configuration>
-						<goals>
-							<goal>run</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
+                        </configuration>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <!-- add jar from ant to the build -->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
+                <version>1.3</version>
+                <executions>
+                    <execution>
+                        <id>add-jar</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>attach-artifact</goal>
+                        </goals>
+                        <configuration>
+                            <artifacts>
+                                <artifact>
+                                    <file>dist/lernstickWelcome.jar</file>
+                                    <type>jar</type>
+                                </artifact>
+                            </artifacts>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
 
-		</plugins>
-	</build>
+        </plugins>
+    </build>
 
-	<reporting>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-checkstyle-plugin</artifactId>
-				<version>2.17</version>
-				<configuration>
+    <reporting>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+                <version>2.17</version>
+                <configuration>
                     <configLocation>${custom.checkstyle}</configLocation>
                     <violationSeverity>warning</violationSeverity>
                     <!-- don't have the build fail because of checkstyle yet
@@ -128,73 +125,73 @@
                     -->
                     <consoleOutput>true</consoleOutput>
 
-				</configuration>
-			</plugin>
+                </configuration>
+            </plugin>
 
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-javadoc-plugin</artifactId>
-				<version>2.10.4</version>
-				<configuration>
-					<charset>UTF-8</charset>
-				</configuration>
-				<reportSets>
-					<reportSet>
-						<id>default</id>
-						<reports>
-							<report>javadoc</report>
-						</reports>
-					</reportSet>
-				</reportSets>
-			</plugin>
-		</plugins>
-	</reporting>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>2.10.4</version>
+                <configuration>
+                    <charset>UTF-8</charset>
+                </configuration>
+                <reportSets>
+                    <reportSet>
+                        <id>default</id>
+                        <reports>
+                            <report>javadoc</report>
+                        </reports>
+                    </reportSet>
+                </reportSets>
+            </plugin>
+        </plugins>
+    </reporting>
 
-	<dependencies>
-		<!-- dbus.jar -->
-		<dependency>
-			<groupId>com.github.bdeneuter</groupId>
-			<artifactId>dbus-java</artifactId>
-			<version>[2.7,]</version>
-		</dependency>
+    <dependencies>
+        <!-- dbus.jar -->
+        <dependency>
+            <groupId>com.github.bdeneuter</groupId>
+            <artifactId>dbus-java</artifactId>
+            <version>[2.7,]</version>
+        </dependency>
 
-		<!-- derby.jar -->
-		<dependency>
-			<groupId>org.apache.derby</groupId>
-			<artifactId>derby</artifactId>
-			<version>[10.13.1.1,]</version>
-			<optional>false</optional>
-		</dependency>
+        <!-- derby.jar -->
+        <dependency>
+            <groupId>org.apache.derby</groupId>
+            <artifactId>derby</artifactId>
+            <version>[10.13.1.1,]</version>
+            <optional>false</optional>
+        </dependency>
 
-		<!-- hexdump.jar -->
-		<dependency>
-			<groupId>org.abstractj.libmatthew</groupId>
-			<artifactId>hexdump</artifactId>
-			<version>[0.2.1,]</version>
-		</dependency>
+        <!-- hexdump.jar -->
+        <dependency>
+            <groupId>org.abstractj.libmatthew</groupId>
+            <artifactId>hexdump</artifactId>
+            <version>[0.2.1,]</version>
+        </dependency>
 
-		<!-- unix.jar -->
-		<dependency>
-			<groupId>org.abstractj.libmatthew</groupId>
-			<artifactId>unix</artifactId>
-			<version>[0.5.1,]</version>
-		</dependency>
+        <!-- unix.jar -->
+        <dependency>
+            <groupId>org.abstractj.libmatthew</groupId>
+            <artifactId>unix</artifactId>
+            <version>[0.5.1,]</version>
+        </dependency>
 
-		<!-- JUnit -->
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>[4.12,]</version>
-			<scope>test</scope>
-		</dependency>
+        <!-- JUnit -->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>[4.12,]</version>
+            <scope>test</scope>
+        </dependency>
 
         <!-- lernstickTools -->
-		<dependency>
-			<groupId>com.github.Kennox</groupId>
-			<artifactId>lernstickTools</artifactId>
-			<version>2</version>
-		</dependency>
+        <dependency>
+            <groupId>com.github.Kennox</groupId>
+            <artifactId>lernstickTools</artifactId>
+            <version>2</version>
+        </dependency>
 
-	</dependencies>
+    </dependencies>
 
 </project>
