@@ -70,6 +70,7 @@
             <!-- build jar from ant build.xml -->
             <plugin>
                 <artifactId>maven-antrun-plugin</artifactId>
+                <version>1.8</version>
                 <executions>
                     <execution>
                         <phase>process-resources</phase>
