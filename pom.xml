@@ -7,7 +7,7 @@
 	<properties>
         <!-- Project dependant variables -->
         <custom.path>ch/fhnw/lernstickwelcomefx</custom.path>
-        <custom.main.class>ch.fhnw.lernstickwelcomefx.Welcome</custom.main.class>
+        <custom.main.class>ch.fhnw.lernstickwelcomefx.LernstickWelcome</custom.main.class>
         <custom.checkstyle>config/checkstyle.xml</custom.checkstyle>
 
         <!-- Project independant variables -->
