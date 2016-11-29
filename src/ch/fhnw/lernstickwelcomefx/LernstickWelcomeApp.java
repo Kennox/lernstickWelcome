@@ -1,8 +1,8 @@
-package ch.fhnw.lernstickWelcomefx;
+package ch.fhnw.lernstickwelcomefx;
 
-import ch.fhnw.lernstickWelcomefx.model.LernstickWelcome;
-import ch.fhnw.lernstickWelcomefx.view.LernstickWelcomePresenter;
-import ch.fhnw.lernstickWelcomefx.view.LernstickWelcomeView;
+import ch.fhnw.lernstickwelcomefx.model.LernstickWelcome;
+import ch.fhnw.lernstickwelcomefx.view.LernstickWelcomePresenter;
+import ch.fhnw.lernstickwelcomefx.view.LernstickWelcomeView;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
