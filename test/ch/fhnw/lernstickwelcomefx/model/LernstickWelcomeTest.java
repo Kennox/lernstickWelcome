@@ -4,9 +4,10 @@ import org.junit.Before;
 import org.junit.Test;
 
 /**
- *
+ *Javadoc not defined.
  */
 public class LernstickWelcomeTest {
+
   @Before
   public void setUp() throws Exception {
 
