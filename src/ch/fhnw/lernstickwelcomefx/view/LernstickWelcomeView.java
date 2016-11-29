@@ -8,7 +8,7 @@ public class LernstickWelcomeView extends Parent { // change Parent to GridPane 
 
   //declare all elements here
 
-  /** Javadoc comment here */
+  /** Javadoc comment here. */
   public LernstickWelcomeView(LernstickWelcome model) {
     this.model = model;
 
