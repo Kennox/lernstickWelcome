@@ -54,10 +54,12 @@
                     <configLocation>${custom.checkstyle}</configLocation>
                     <encoding>UTF-8</encoding>
                     <consoleOutput>true</consoleOutput>
-                    <failsOnError>true</failsOnError>
                     <includeTestSourceDirectory>true</includeTestSourceDirectory>
+                    <!--
+                    <failsOnError>true</failsOnError>
                     <failOnViolation>true</failOnViolation>
                     <violationSeverity>warning</violationSeverity>
+                    -->
                 </configuration>
                 <executions>
                     <execution>
