@@ -1,4 +1,4 @@
-package ch.fhnw.lernstickWelcomefx.model;
+package ch.fhnw.lernstickwelcomefx.model;
 
 public class LernstickWelcome {
   public LernstickWelcome() {

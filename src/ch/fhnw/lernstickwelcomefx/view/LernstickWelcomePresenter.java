@@ -1,6 +1,6 @@
-package ch.fhnw.lernstickWelcomefx.view;
+package ch.fhnw.lernstickwelcomefx.view;
 
-import ch.fhnw.lernstickWelcomefx.model.LernstickWelcome;
+import ch.fhnw.lernstickwelcomefx.model.LernstickWelcome;
 
 public class LernstickWelcomePresenter {
   private final LernstickWelcome model;
