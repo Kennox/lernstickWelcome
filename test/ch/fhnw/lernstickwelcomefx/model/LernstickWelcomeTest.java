@@ -13,7 +13,7 @@ public class LernstickWelcomeTest {
     }
 
     @Test
-    public void testjenkinks(){
+    public void sampletest(){
 
     }
 
