@@ -4,17 +4,17 @@ import org.junit.Before;
 import org.junit.Test;
 
 /**
- * Created by user on 28.11.16.
+ *
  */
 public class LernstickWelcomeTest {
-    @Before
-    public void setUp() throws Exception {
+  @Before
+  public void setUp() throws Exception {
 
-    }
+  }
 
-    @Test
-    public void sampletest(){
+  @Test
+  public void sampletest() {
 
-    }
+  }
 
 }
