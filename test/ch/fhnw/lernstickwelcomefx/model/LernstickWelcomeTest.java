@@ -1,6 +1,6 @@
-package ch.fhnw.lernstickWelcomefx.model;
+package ch.fhnw.lernstickwelcomefx.model;
 
-import static org.junit.Assert.Before;
+import org.junit.Test;
 
 /**
  * Created by user on 28.11.16.
